@@ -297,6 +297,23 @@
             </p>
         </div>
         
+        <div class="message-section">
+            <h2 class="manifesto-title">SEND YOUR MESSAGE TO ALON</h2>
+            <div class="message-form-container">
+                <textarea id="messageInput" placeholder="Tell ALON what you really think about the $750M extraction..." maxlength="500"></textarea>
+                <input type="text" id="nameInput" placeholder="Your handle (optional)" maxlength="50">
+                <button id="submitMessage">EXPOSE THE TRUTH</button>
+                <div id="submitStatus"></div>
+            </div>
+        </div>
+
+        <div class="messages-display">
+            <h2 class="manifesto-title">MESSAGES FROM THE TRENCHES</h2>
+            <div id="messagesContainer">
+                <div class="loading-messages">Loading messages from the resistance...</div>
+            </div>
+        </div>
+
         <div class="call-to-action">
             <div class="cta-text">SPREAD THE WORD</div>
             <p>Don't let ALON fly away with $750M while the trenches suffer in silence. 
@@ -305,6 +322,151 @@
     </div>
     
     <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAwKnjg7xUlji5YDQs6mhlRYypBvDlPeQA",
+            authDomain: "dontpump-609e7.firebaseapp.com",
+            projectId: "dontpump-609e7",
+            storageBucket: "dontpump-609e7.firebasestorage.app",
+            messagingSenderId: "834106288808",
+            appId: "1:834106288808:web:44ba01c1d011a61f08b09d",
+            measurementId: "G-93RDF250V3"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        // References
+        const messageInput = document.getElementById('messageInput');
+        const nameInput = document.getElementById('nameInput');
+        const submitButton = document.getElementById('submitMessage');
+        const submitStatus = document.getElementById('submitStatus');
+        const messagesContainer = document.getElementById('messagesContainer');
+        
+        // Submit message function
+        async function submitMessage() {
+            const message = messageInput.value.trim();
+            const name = nameInput.value.trim() || 'Anonymous Trencher';
+            
+            if (!message) {
+                showStatus('Please enter a message to ALON!', 'error');
+                return;
+            }
+            
+            submitButton.disabled = true;
+            submitButton.textContent = 'SENDING...';
+            
+            try {
+                await db.collection('messages').add({
+                    content: message,
+                    author: name,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    approved: true // You might want to add moderation
+                });
+                
+                messageInput.value = '';
+                nameInput.value = '';
+                showStatus('Message sent to the resistance!', 'success');
+                
+                // Reload messages
+                loadMessages();
+                
+            } catch (error) {
+                console.error('Error sending message:', error);
+                showStatus('Failed to send message. The system might be compromised!', 'error');
+            }
+            
+            submitButton.disabled = false;
+            submitButton.textContent = 'EXPOSE THE TRUTH';
+        }
+        
+        // Show status message
+        function showStatus(message, type) {
+            submitStatus.textContent = message;
+            submitStatus.className = type;
+            setTimeout(() => {
+                submitStatus.textContent = '';
+                submitStatus.className = '';
+            }, 3000);
+        }
+        
+        // Load messages from Firebase
+        async function loadMessages() {
+            try {
+                const snapshot = await db.collection('messages')
+                    .where('approved', '==', true)
+                    .orderBy('timestamp', 'desc')
+                    .limit(50)
+                    .get();
+                
+                messagesContainer.innerHTML = '';
+                
+                if (snapshot.empty) {
+                    messagesContainer.innerHTML = '<div class="no-messages">No messages yet. Be the first to expose ALON!</div>';
+                    return;
+                }
+                
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const messageElement = createMessageElement(data);
+                    messagesContainer.appendChild(messageElement);
+                });
+                
+            } catch (error) {
+                console.error('Error loading messages:', error);
+                messagesContainer.innerHTML = '<div class="error">Failed to load messages. Firebase connection compromised!</div>';
+            }
+        }
+        
+        // Create message element
+        function createMessageElement(data) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message-item';
+            
+            const timestamp = data.timestamp ? data.timestamp.toDate().toLocaleString() : 'Unknown time';
+            
+            messageDiv.innerHTML = `
+                <div class="message-header">
+                    <span class="message-author">${escapeHtml(data.author)}</span>
+                    <span class="message-timestamp">${timestamp}</span>
+                </div>
+                <div class="message-content">${escapeHtml(data.content)}</div>
+            `;
+            
+            return messageDiv;
+        }
+        
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Event listeners
+        submitButton.addEventListener('click', submitMessage);
+        
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                submitMessage();
+            }
+        });
+        
+        // Load messages on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMessages();
+            
+            // Real-time updates (optional)
+            db.collection('messages')
+                .where('approved', '==', true)
+                .orderBy('timestamp', 'desc')
+                .limit(1)
+                .onSnapshot(() => {
+                    loadMessages();
+                });
+        });
+        
         // Add some interactive effects
         document.addEventListener('mousemove', (e) => {
             const pigeon = document.querySelector('.pigeon-image');
