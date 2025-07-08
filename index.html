@@ -34,26 +34,21 @@
             padding: 20px;
         }
         
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        
-        .header-buttons {
-            position: absolute;
-            top: 0;
-            right: 0;
+        /* Top social buttons */
+        .top-social-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
             display: flex;
             gap: 15px;
-            z-index: 10;
+            z-index: 1000;
         }
         
-        .header-button {
+        .top-social-button {
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             border: 2px solid #44ff44;
             border-radius: 8px;
             padding: 10px 15px;
@@ -65,33 +60,40 @@
             backdrop-filter: blur(10px);
         }
         
-        .header-button:hover {
+        .top-social-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(68, 255, 68, 0.5);
         }
         
-        .header-button img {
+        .top-social-button img {
             width: 18px;
             height: 18px;
             filter: brightness(1.2);
         }
         
-        .header-x-button {
+        .top-social-x-button {
             border-color: #1DA1F2;
         }
         
-        .header-x-button:hover {
+        .top-social-x-button:hover {
             border-color: #1DA1F2;
             box-shadow: 0 5px 15px rgba(29, 161, 242, 0.5);
         }
         
-        .header-bonk-button {
+        .top-social-bonk-button {
             border-color: #ff6b35;
         }
         
-        .header-bonk-button:hover {
+        .top-social-bonk-button:hover {
             border-color: #ff6b35;
             box-shadow: 0 5px 15px rgba(255, 107, 53, 0.5);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            margin-top: 60px; /* Add space for fixed buttons */
         }
         
         .main-title {
@@ -185,6 +187,24 @@
             color: #fff;
             text-align: justify;
             margin-bottom: 20px;
+        }
+        
+        /* Manifesto image styling */
+        .manifesto-image {
+            display: block;
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            margin: 30px auto;
+            border-radius: 15px;
+            border: 3px solid #ff4444;
+            filter: drop-shadow(0 0 20px rgba(255, 68, 68, 0.5));
+            transition: all 0.3s ease;
+        }
+        
+        .manifesto-image:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 30px rgba(255, 68, 68, 0.8));
         }
         
         .highlight {
@@ -520,16 +540,36 @@
             box-shadow: 0 8px 25px rgba(29, 161, 242, 0.5);
         }
         
-        .bonk-button {
-            border-color: #ff6b35;
+        .dontpump-button {
+            border-color: #ff4444;
         }
         
-        .bonk-button:hover {
-            border-color: #ff6b35;
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
+        .dontpump-button:hover {
+            border-color: #ff4444;
+            box-shadow: 0 8px 25px rgba(255, 68, 68, 0.5);
         }
         
         @media (max-width: 768px) {
+            .top-social-buttons {
+                top: 10px;
+                right: 10px;
+                gap: 10px;
+            }
+            
+            .top-social-button {
+                padding: 8px 12px;
+                font-size: 0.5rem;
+            }
+            
+            .top-social-button img {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .header {
+                margin-top: 80px;
+            }
+            
             .main-title {
                 font-size: 1.8rem;
             }
@@ -537,6 +577,10 @@
             .pigeon-image {
                 width: 250px;
                 height: 250px;
+            }
+            
+            .manifesto-image {
+                max-width: 300px;
             }
             
             .manifesto-text {
@@ -559,19 +603,20 @@
     </style>
 </head>
 <body>
+    <!-- Top social buttons -->
+    <div class="top-social-buttons">
+        <a href="https://x.com/i/communities/1942404699782627354/" target="_blank" class="top-social-button top-social-x-button">
+            <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6838de5fb56905c169669b27_61w1Q5OxE2L%20(1).png" alt="X Logo">
+            X
+        </a>
+        <a href="https://letsbonk.fun" target="_blank" class="top-social-button top-social-bonk-button">
+            <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6830b23d3845e440a89df555_1426fdc80718b3a0ea9acaaea081dbd1-removebg-preview.png" alt="BONK Logo">
+            BONK
+        </a>
+    </div>
+
     <div class="container">
         <div class="header">
-            <div class="header-buttons">
-                <a href="https://x.com/i/communities/1942404699782627354/" target="_blank" class="header-button header-x-button">
-                    <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6838de5fb56905c169669b27_61w1Q5OxE2L%20(1).png" alt="X Logo">
-                    X
-                </a>
-                <a href="https://letsbonk.fun" target="_blank" class="header-button header-bonk-button">
-                    <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6830b23d3845e440a89df555_1426fdc80718b3a0ea9acaaea081dbd1-removebg-preview.png" alt="BONK Logo">
-                    BONK
-                </a>
-            </div>
-            
             <h1 class="main-title">DONTPUMP.FUN</h1>
             <p class="subtitle">The Pigeon's Truth Revealed</p>
             <div class="warning-banner">
@@ -593,6 +638,10 @@
                 My beady eyes have witnessed the greatest heist in crypto history, and it's time someone with feathers 
                 spilled the beans about <span class="highlight">ALON</span> and his systematic destruction of the trenches.
             </p>
+            
+            <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/686c7de9f81ac8d3aa15f653_ChatGPT%20Image%20Jul%208%2C%202025%2C%2003_06_55%20AM.png" 
+                 alt="Evidence from the Streets" 
+                 class="manifesto-image" />
             
             <p class="manifesto-text">
                 <span class="highlight">$750,000,000</span> didn't just vanish into thin air. It was methodically extracted 
@@ -634,20 +683,20 @@
             
             <p class="manifesto-text">
                 So here I am, a simple pigeon with a simple ultimatum: <span class="highlight">WE WON'T STAND FOR IT, ALON.</span> 
-                The trenches are switching to <span class="highlight">$BONK</span> until you do right by the people who believed in you. 
+                The trenches are switching to <span class="highlight">$DONTPUMP</span> until you do right by the people who believed in you. 
                 <span class="highlight">CONFIRM THE AIRDROP FOR THE TRENCHERS</span> or watch your ecosystem crumble as everyone migrates to meme coins that actually deliver.
             </p>
             
             <p class="manifesto-text">
                 <span class="highlight">THIS IS YOUR NOTICE, ALON:</span> The pigeon network is watching. The trenches are organizing. 
                 We're not asking for charity - we're demanding what was promised. Until you announce a legitimate airdrop 
-                for the retail traders you screwed over, <span class="highlight">WE'RE ALL IN ON $BONK.</span> 
+                for the retail traders you screwed over, <span class="highlight">WE'RE ALL IN ON $DONTPUMP.</span> 
                 Let's see how your $750M extraction feels when the entire community abandons ship.
             </p>
             
             <p class="signature">
                 - A Concerned Pigeon Leading The Resistance<br>
-                <small>Flying With $BONK Until Justice Is Served</small><br>
+                <small>Flying With $DONTPUMP Until Justice Is Served</small><br>
                 <small><span class="highlight">ALON: CONFIRM THE AIRDROP OR FACE THE CONSEQUENCES</span></small>
             </p>
         </div>
@@ -670,9 +719,9 @@
         </div>
         
         <div class="call-to-action">
-            <div class="cta-text">JOIN THE $BONK RESISTANCE</div>
+            <div class="cta-text">JOIN THE $DONTPUMP RESISTANCE</div>
             <p>We're not asking ALON nicely anymore. Until he confirms a legitimate airdrop for the trenchers 
-            who got rugged, we're all moving to $BONK. Share this ultimatum. The streets (and skies) demand justice. 
+            who got rugged, we're all moving to $DONTPUMP. Share this ultimatum. The streets (and skies) demand justice. 
             <span class="highlight">ALON: THE CLOCK IS TICKING.</span></p>
             
             <div class="action-buttons">
@@ -680,14 +729,14 @@
                     <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6838de5fb56905c169669b27_61w1Q5OxE2L%20(1).png" alt="X Logo">
                     JOIN THE FIGHT
                 </a>
-                <a href="https://letsbonk.fun" target="_blank" class="action-button bonk-button">
-                    <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/6830b23d3845e440a89df555_1426fdc80718b3a0ea9acaaea081dbd1-removebg-preview.png" alt="BONK Logo">
-                    GET $BONK NOW
+                <a href="https://letsbonk.fun" target="_blank" class="action-button dontpump-button">
+                    <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/686c76745856811cc2bd0d57_ChatGPT%20Image%20Jul%208%2C%202025%2C%2002_37_32%20AM.png" alt="DONTPUMP Logo">
+                    BUY $DONTPUMP
                 </a>
             </div>
         </div>
     </div>
-    
+
     <script>
         // Firebase Configuration
         const firebaseConfig = {
