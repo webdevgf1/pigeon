@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DONTPUMP.FUN - THE PIGEON KNOWS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .main-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 2.5rem;
+            color: #ff4444;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0px #000;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 3px 3px 0px #000, 0 0 10px #ff4444; }
+            to { text-shadow: 3px 3px 0px #000, 0 0 20px #ff4444, 0 0 30px #ff4444; }
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #44ff44;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        /* Low-poly pigeon SVG */
+        .pigeon-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pigeon-image {
+            width: 300px;
+            height: 300px;
+            filter: drop-shadow(0 0 20px rgba(68, 255, 68, 0.5));
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .pigeon-image:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 30px rgba(68, 255, 68, 0.8));
+        }
+        
+        .manifesto-section {
+            background: rgba(0, 0, 0, 0.7);
+            border: 3px solid #44ff44;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .manifesto-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #44ff44, #4444ff, #ff4444, #ffff44);
+            z-index: -1;
+            border-radius: 15px;
+            animation: border-rotate 3s linear infinite;
+        }
+        
+        @keyframes border-rotate {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        .manifesto-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.5rem;
+            color: #ffff44;
+            text-align: center;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 0px #000;
+        }
+        
+        .manifesto-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #fff;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+        
+        .highlight {
+            background: linear-gradient(90deg, #ff4444, #ffff44);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            animation: highlight-pulse 2s infinite;
+        }
+        
+        @keyframes highlight-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .evidence-box {
+            background: rgba(20, 20, 50, 0.9);
+            border: 2px solid #ff4444;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            transform: skew(-2deg);
+            transition: all 0.3s ease;
+        }
+        
+        .evidence-box:hover {
+            transform: skew(0deg) scale(1.02);
+            box-shadow: 0 0 25px rgba(255, 68, 68, 0.5);
+        }
+        
+        .evidence-title {
+            color: #ff4444;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .call-to-action {
+            background: linear-gradient(45deg, #ff4444, #000);
+            border: 3px solid #44ff44;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 40px;
+            animation: cta-pulse 2s infinite;
+        }
+        
+        @keyframes cta-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .cta-text {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.2rem;
+            color: #ffff44;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px #000;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+            color: #44ff44;
+            font-size: 1.1rem;
+        }
+        
+        .warning-banner {
+            background: #ff4444;
+            color: #000;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: warning-blink 1s infinite;
+            border-radius: 10px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.8rem;
+        }
+        
+        @keyframes warning-blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 1.8rem;
+            }
+            
+            .pigeon-svg {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .manifesto-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">DONTPUMP.FUN</h1>
+            <p class="subtitle">The Pigeon's Truth Revealed</p>
+            <div class="warning-banner">
+                ⚠️ CLASSIFIED INTEL FROM THE STREETS ⚠️
+            </div>
+        </div>
+        
+        <div class="pigeon-container">
+            <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/686c76745856811cc2bd0d57_ChatGPT%20Image%20Jul%208%2C%202025%2C%2002_37_32%20AM.png" 
+                 alt="The Truth-Telling Pigeon" 
+                 class="pigeon-image" />
+        </div>
+        
+        <div class="manifesto-section">
+            <h2 class="manifesto-title">THE PIGEON'S MANIFESTO</h2>
+            
+            <p class="manifesto-text">
+                Listen up, degens. I've been watching from the rooftops, perched on lampposts, seeing everything unfold. 
+                My beady eyes have witnessed the greatest heist in crypto history, and it's time someone with feathers 
+                spilled the beans about <span class="highlight">ALON</span> and his systematic destruction of the trenches.
+            </p>
+            
+            <p class="manifesto-text">
+                <span class="highlight">$750,000,000</span> didn't just vanish into thin air. It was methodically extracted 
+                through coordinated pump schemes that would make even us street-smart pigeons jealous. While you apes were 
+                diamond-handing and believing in "diamond wings," ALON was already planning the ultimate rug pull.
+            </p>
+            
+            <div class="evidence-box">
+                <div class="evidence-title">What I Saw From The Wires:</div>
+                <p>• Coordinated wallet movements at 3 AM when the trenches were sleeping</p>
+                <p>• Telegram channels with insider signals 48 hours before every dump</p>
+                <p>• Smart contracts with hidden functions that only whales knew about</p>
+                <p>• The airdrop promises were NEVER coded into the contract</p>
+            </div>
+            
+            <p class="manifesto-text">
+                They promised airdrops to keep you holding while they systematically extracted liquidity. 
+                <span class="highlight">"Trust the process,"</span> they said. <span class="highlight">"Diamond hands,"</span> 
+                they chirped. Meanwhile, ALON was selling millions of tokens through 47 different wallets, 
+                leaving you holding worthless bags while he flew off to his offshore nest.
+            </p>
+            
+            <p class="manifesto-text">
+                The trenches believed in the vision. They believed in the technology. They believed in the community. 
+                But ALON? He believed in one thing: <span class="highlight">extracting maximum value from retail traders</span> 
+                before disappearing into the void. The airdrop was never coming. It was all smoke and mirrors.
+            </p>
+            
+            <div class="evidence-box">
+                <div class="evidence-title">The Smoking Gun Evidence:</div>
+                <p>I pecked through the blockchain data myself. The wallet clusters, the timing patterns, 
+                the coordinated exits - it's all there in black and white. ALON didn't just rug pull, 
+                he executed a surgical extraction that left the trenches bleeding while he counted his millions.</p>
+            </div>
+            
+            <p class="manifesto-text">
+                So here I am, a simple pigeon with a simple message: <span class="highlight">DONTPUMP.FUN</span> 
+                because the pump was never for you. It was for them. The extraction is complete, 
+                the damage is done, but at least now you know the truth.
+            </p>
+            
+            <p class="signature">
+                - A Concerned Pigeon Who's Seen Too Much<br>
+                <small>Flying Free Since The Great Rug of 2024</small>
+            </p>
+        </div>
+        
+        <div class="call-to-action">
+            <div class="cta-text">SPREAD THE WORD</div>
+            <p>Don't let ALON fly away with $750M while the trenches suffer in silence. 
+            Share this truth. The streets (and skies) need to know what really happened.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Add some interactive effects
+        document.addEventListener('mousemove', (e) => {
+            const pigeon = document.querySelector('.pigeon-image');
+            const rect = pigeon.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const deltaX = (e.clientX - centerX) * 0.005;
+            const deltaY = (e.clientY - centerY) * 0.005;
+            
+            pigeon.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(1.02)`;
+        });
+    </script>
+</body>
+</html>
